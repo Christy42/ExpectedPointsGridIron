@@ -10,13 +10,13 @@ def sum_list(columns):
 
 
 def figure_play_fact(play_line):
-    if "incomplete" in play_line or "under pressure from" in play_line:
+    if " incomplete" in play_line or "under pressure from" in play_line:
         return play_line[3:12]
-    play_line = play_line.split("yards")[0]
-
+    play_line = play_line.split(" yards")[0]
+    negative = -1 if " sacked by " in play_line else 1
     add = 1 * ("-" in play_line[-4:-1])
-    dist = int(play_line[-3 - add:-1])
-    place = str(int(play_line[4:6]) - dist)
+    dist = int(play_line[-3 - add:-1]) * negative
+    place = str((int(play_line[4:6]) - dist) * negative)
     if len(place) == 1:
         place = "0" + place
     field = str(int(play_line[10:12]) + dist)
