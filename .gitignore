@@ -1,1 +1,7 @@
 .idea*
+ExpectedPoints.egg-info
+build/*
+.tox/*
+dist/*
+.cache/*
+tests/_*
