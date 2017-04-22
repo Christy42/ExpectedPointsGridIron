@@ -10,7 +10,7 @@ def sum_list(columns):
 
 
 def figure_play_fact(play_line):
-    if "Punt" not in play_line or "Field goal" not in play_line:
+    if "Punt" not in play_line and "Field goal" not in play_line:
         return "0"
     if " incomplete" in play_line or "under pressure from" in play_line:
         return play_line[3:12]
