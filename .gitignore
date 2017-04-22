@@ -5,3 +5,4 @@ build/*
 dist/*
 .cache/*
 tests/_*
+*_pycache_*
