@@ -28,6 +28,6 @@ def figure_play_fact(play_line):
 def calc_next_score(columns, i):
     team = columns[i][-3:]
     for j in range(i, len(columns)):
-        if int(columns[j][-6:-5]) > 0:
-            return int(columns[j][-6:-5]) * (2 * (team == columns[j][-3:]) - 1)
+        if int(columns[j][-7:-6]) > 0:
+            return int(columns[j][-7:-6]) * (2 * (team == columns[j][-3:]) - 1)
     return 0

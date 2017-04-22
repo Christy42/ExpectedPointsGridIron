@@ -21,5 +21,5 @@ def test_figure_play_fact():
 
 
 def test_calc_next_score():
-    columns = ["7  TRA", "0  TRA", "3  TRA", "0  TRA", "0  TRA", "7  BEL", "3  BEL"]
+    columns = ["7   TRA", "0   TRA", "3   TRA", "0   TRA", "0   TRA", "7   BEL", "3   BEL"]
     assert(calc_next_score(columns, 3) == -7)
