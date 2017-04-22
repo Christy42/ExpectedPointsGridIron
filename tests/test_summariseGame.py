@@ -1,6 +1,6 @@
 import os
 
-from expectedPoints.summariseGame import handle_fourth_down, get_final_scores, assign_weights
+from expectedPoints.summariseGame import handle_fourth_down, get_final_scores, assign_weights, divide_quarters
 
 
 def test_handle_fourth_down():
@@ -52,8 +52,14 @@ def test_assign_weights():
                     'The offense will start on 69 yards from the end zone.']]
 
     answer = assign_weights(sample_game, [{"Score": 0, "Team": "DEF"}, {"Score": 7, "Team": "ROS"}])
-    print(answer)
     assert(answer["number_of"]["off"]["1st-10-34"] == 1)
     assert(answer["values"]["off"]["1st-10-34"] == 3)
     assert(answer["number_of"]["def"]["4th-10-79"] == 1)
     assert(answer["values"]["def"]["4th-10-79"] == -3)
+
+
+def test_divide_quarters():
+    with open(os.path.dirname(os.path.realpath(__file__)) + "//TestGame.txt", "r") as file:
+        sample_game = file.read()
+    answer = divide_quarters(sample_game)
+    assert(len(answer) == 2)
