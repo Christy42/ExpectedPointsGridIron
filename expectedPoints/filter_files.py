@@ -16,14 +16,14 @@ def cycle_files(folder):
         values["def"] = add_dicts(values["def"], value_game["values"]["def"])
         number_of["off"] = add_dicts(number_of["off"], value_game["number_of"]["off"])
         number_of["def"] = add_dicts(number_of["def"], value_game["number_of"]["def"])
-        with open(folder + '//values.csv', 'w') as csv_file:
-            writer = csv.writer(csv_file)
-            for key, value in values["off"].items():
-                writer.writerow([key, value])
-        with open(folder + '//number_of.csv', 'w') as csv_file:
-            writer = csv.writer(csv_file)
-            for key, value in number_of["off"].items():
-                writer.writerow([key, value])
+    with open(folder + '//values.csv', 'w') as csv_file:
+        writer = csv.writer(csv_file)
+        for key, value in values["off"].items():
+            writer.writerow([key, value])
+    with open(folder + '//number_of.csv', 'w') as csv_file:
+        writer = csv.writer(csv_file)
+        for key, value in number_of["off"].items():
+            writer.writerow([key, value])
     return {"values": values, "number_of": number_of}
 
 beta = cycle_files("C://Users//Mark//PycharmProjects//pointsEstimationFolder//BaseAttempt")
