@@ -15,12 +15,13 @@ def get_final_scores(game):
     value = [{"Team": "DEF", "Score": 0}, {"Team": "DEF", "Score": 0}]
     for i in range(len(cut_string)):
         for j in range(len(cut_string[i])):
-            add = 1 * ("-" == cut_string[i][j][5])
             if " TOUCHDOWN!" in cut_string[i][j]:
+                add = 1 * ("-" == cut_string[i][j][5])
                 value[i]["Score"] = 7
                 value[i]["Team"] = cut_string[i][j][7 - add: 10 - add]
                 break
             elif "field goal is GOOD" in cut_string[i][j]:
+                add = 1 * ("-" == cut_string[i][j][5])
                 value[i]["Score"] = 3
                 value[i]["Team"] = cut_string[i][j][7 - add: 10 - add]
                 break
@@ -56,13 +57,8 @@ def handle_fourth_down(segmented_string):
 
     cut_string = [[cut_string[j][i][:4] + "0" + cut_string[j][i][4:] if cut_string[j][i][5] == "-" else cut_string[j][i]
                    for i in range(len(cut_string[j]))] for j in range(2)]
-    for j in range(2):
-        for i in range(len(cut_string[j])):
-            print("X")
-            print(cut_string[j][i])
-            print(cut_string[j][i][10])
     cut_string = [[str(cut_string[j][i][:10]) + "0" + str(cut_string[j][i][10:])
-                   if str(cut_string[j][i][10]).isnumeric()
+                   if not str(cut_string[j][i][11]).isnumeric()
                    else cut_string[j][i] for i in range(len(cut_string[j]))] for j in range(2)]
     cut_string = [[str(cut_string[j][i]).replace("Punt", "4th" + figure_play_fact(cut_string[j][i])).
                   replace("Field goal", "4th" + figure_play_fact(cut_string[j][i]))
