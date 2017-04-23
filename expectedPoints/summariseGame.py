@@ -15,9 +15,9 @@ def get_final_scores(game):
     value = [{"Team": "DEF", "Score": 0}, {"Team": "DEF", "Score": 0}]
     for i in range(len(cut_string)):
         for j in range(len(cut_string[i])):
+            add = 1 * ("-" == cut_string[i][j][5])
             if " TOUCHDOWN!" in cut_string[i][j]:
                 value[i]["Score"] = 7
-                add = 1 * ("-" == cut_string[i][j][5])
                 value[i]["Team"] = cut_string[i][j][7 - add: 10 - add]
                 break
             elif "field goal is GOOD" in cut_string[i][j]:
@@ -39,7 +39,7 @@ def divide_quarters(game):
     cut_string = [[cut_string[j][i][5:] for i in range(len(cut_string[j]))] for j in range(len(cut_string))]
     cut_string = [[cut_string[j][i] for i in range(len(cut_string[j])) if cut_string[j][i] != ""]
                   for j in range(len(cut_string))]
-    cut_string = [[str(cut_string[j][i]).replace("Gains 1st down!", "XXXXX") for i in range(len(cut_string[j]))]
+    cut_string = [[str(cut_string[j][i]).replace("1st down!", "XXXXX") for i in range(len(cut_string[j]))]
                   for j in range(len(cut_string))]
     cut_string = [[str(cut_string[j][i]).replace("1st", "spl£S1st").replace("2nd", "spl£S2nd").
                    replace("3rd", "spl£S3rd").replace("4th", "spl£S4th").split("spl£S")[1:]
@@ -56,6 +56,11 @@ def handle_fourth_down(segmented_string):
 
     cut_string = [[cut_string[j][i][:4] + "0" + cut_string[j][i][4:] if cut_string[j][i][5] == "-" else cut_string[j][i]
                    for i in range(len(cut_string[j]))] for j in range(2)]
+    for j in range(2):
+        for i in range(len(cut_string[j])):
+            print("X")
+            print(cut_string[j][i])
+            print(cut_string[j][i][10])
     cut_string = [[str(cut_string[j][i][:10]) + "0" + str(cut_string[j][i][10:])
                    if str(cut_string[j][i][10]).isnumeric()
                    else cut_string[j][i] for i in range(len(cut_string[j]))] for j in range(2)]
