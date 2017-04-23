@@ -1,0 +1,8 @@
+.idea*
+ExpectedPoints.egg-info
+build/*
+.tox/*
+dist/*
+.cache/*
+tests/_*
+*_pycache_*

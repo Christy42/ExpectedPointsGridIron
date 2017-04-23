@@ -10,12 +10,14 @@ def sum_list(columns):
 
 
 def figure_play_fact(play_line):
-    if "incomplete" in play_line or "under pressure from" in play_line:
+    if "Punt" not in play_line and "Field goal" not in play_line:
+        return "0"
+    if " incomplete" in play_line or "under pressure from" in play_line:
         return play_line[3:12]
-    play_line = play_line.split("yards")[0]
-
+    play_line = play_line.split(" yards")[0]
+    negative = -1 if " sacked by " in play_line else 1
     add = 1 * ("-" in play_line[-4:-1])
-    dist = int(play_line[-3 - add:-1])
+    dist = int(play_line[-2 - add:]) * negative
     place = str(int(play_line[4:6]) - dist)
     if len(place) == 1:
         place = "0" + place
@@ -28,6 +30,6 @@ def figure_play_fact(play_line):
 def calc_next_score(columns, i):
     team = columns[i][-3:]
     for j in range(i, len(columns)):
-        if int(columns[j][-6:-5]) > 0:
-            return int(columns[j][-6:-5]) * (2 * (team == columns[j][-3:]) - 1)
+        if int(columns[j][-7:-6]) > 0:
+            return int(columns[j][-7:-6]) * (2 * (team == columns[j][-3:]) - 1)
     return 0
