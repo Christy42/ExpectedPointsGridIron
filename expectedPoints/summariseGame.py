@@ -35,7 +35,8 @@ def divide_quarters(game):
     cut_string = [[quarters[j][i] if int(quarters[j][i][:2]) > 4 or j in [0, 2] else ""
                    for i in range(len(quarters[j]))]
                   for j in range(len(quarters))]
-    cut_string = [[cut_string[j][i][5:] for i in range(len(cut_string))] for j in range(len(cut_string))]
+
+    cut_string = [[cut_string[j][i][5:] for i in range(len(cut_string[j]))] for j in range(len(cut_string))]
     cut_string = [[cut_string[j][i] for i in range(len(cut_string[j])) if cut_string[j][i] != ""]
                   for j in range(len(cut_string))]
     cut_string = [[str(cut_string[j][i]).replace("1st", "spl£S1st").replace("2nd", "spl£S2nd").
@@ -53,7 +54,9 @@ def handle_fourth_down(segmented_string):
 
     cut_string = [[cut_string[j][i][:4] + "0" + cut_string[j][i][4:] if cut_string[j][i][5] == "-" else cut_string[j][i]
                    for i in range(len(cut_string[j]))] for j in range(2)]
-
+    cut_string = [[str(cut_string[j][i][:10]) + "0" + str(cut_string[j][i][10:])
+                   if str(cut_string[j][i][10]).isnumeric()
+                   else cut_string[j][i] for i in range(len(cut_string[j]))] for j in range(2)]
     cut_string = [[str(cut_string[j][i]).replace("Punt", "4th" + figure_play_fact(cut_string[j][i])).
                   replace("Field goal", "4th" + figure_play_fact(cut_string[j][i]))
                    for i in range(len(cut_string[j]))] for j in range(2)]
@@ -93,7 +96,8 @@ def assign_weights(segmented_string, end_scores):
     for j in range(2):
         for i in range(len(cut_string[j]) - 1):
             score = calc_next_score(cut_string[j], i)
-
+            if not cut_string[j][i][3:9].replace("-", "").isnumeric():
+                print(cut_string[j][i])
             if cut_string[j][i][:9] in values["off"].keys():
                 number_of["def"][cut_string[j][i][:9]] += 1
                 number_of["off"][cut_string[j][i][:9]] += 1
