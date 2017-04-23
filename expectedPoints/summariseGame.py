@@ -39,6 +39,8 @@ def divide_quarters(game):
     cut_string = [[cut_string[j][i][5:] for i in range(len(cut_string[j]))] for j in range(len(cut_string))]
     cut_string = [[cut_string[j][i] for i in range(len(cut_string[j])) if cut_string[j][i] != ""]
                   for j in range(len(cut_string))]
+    cut_string = [[str(cut_string[j][i]).replace("Gains 1st down!", "XXXXX") for i in range(len(cut_string[j]))]
+                  for j in range(len(cut_string))]
     cut_string = [[str(cut_string[j][i]).replace("1st", "spl£S1st").replace("2nd", "spl£S2nd").
                    replace("3rd", "spl£S3rd").replace("4th", "spl£S4th").split("spl£S")[1:]
                    for i in range(len(cut_string[j]))] for j in range(len(cut_string))]
@@ -86,7 +88,6 @@ def assign_weights(segmented_string, end_scores):
     for j in range(2):
         for i in range(len(cut_string[j])):
             score = str(7 * (" TOUCHDOWN!" in cut_string[j][i]) + 3 * ("field goal is GOOD" in cut_string[j][i]))
-
             cut_string[j][i] = cut_string[j][i][:7] + cut_string[j][i][10:12] + "   " + score + "   " + \
                 cut_string[j][i][7:10]
         cut_string[j].append("Default00" + "   " + str(end_scores[j]["Score"]) + "   " + end_scores[j]["Team"])
